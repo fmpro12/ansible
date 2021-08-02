@@ -4,7 +4,9 @@
   tasks:
    - name: Create database user with name 'bob' and password '12345' with all database privileges
      community.mysql.mysql_user:
+          config_file: /var/lib/awx/.my.cnf
           name: bob
           password: 12345
           priv: '*.*:ALL'
           state: present
+
