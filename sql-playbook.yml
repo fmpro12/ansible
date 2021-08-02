@@ -1,0 +1,10 @@
+---
+- name: Update web servers
+  hosts: localhost
+  tasks:
+   - name: Create database user with name 'bob' and password '12345' with all database privileges
+     community.mysql.mysql_user:
+          name: bob
+          password: 12345
+          priv: '*.*:ALL'
+          state: present
