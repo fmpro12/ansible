@@ -2,7 +2,7 @@
 - name: Update web servers
   hosts: localhost
   tasks:
-   - name: Create database user with name 'bob' and password '12345' with all database privileges
+   - name: Create database user with name 'bob2' and password '12345' with all database privileges
      community.mysql.mysql_user:
           login_user: admin
           login_password: zubur1 
