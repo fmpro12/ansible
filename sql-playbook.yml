@@ -1,6 +1,6 @@
 ---
 - name: Update web servers
-  hosts: localhost
+  hosts: 172.18.0.1
   tasks:
    - name: Create database user with name 'bob3' and password '12345' with all database privileges
      community.mysql.mysql_user:
