@@ -6,7 +6,7 @@
      community.mysql.mysql_user:
           login_host: 172.18.0.1 
           name: 
-            - {{ username }}
+            - "{{ username }}"
           password: 12345
           priv: '*.*:ALL'
           state: present
