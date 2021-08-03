@@ -2,7 +2,7 @@
 - name: Update web servers
   hosts: localhost
   tasks:
-   - name: Create database user with name 'bob4' and password '12345' with all database privileges
+   - name: Create database user
      community.mysql.mysql_user:
           login_host: "{{ host }}"
           name: "{{ username }}"
