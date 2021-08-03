@@ -5,8 +5,7 @@
    - name: Create database user with name 'bob4' and password '12345' with all database privileges
      community.mysql.mysql_user:
           login_host: 172.18.0.1 
-          name: 
-            - "{{ username }}"
+          name: "{{ username }}"
           password: 12345
           priv: '*.*:ALL'
           state: present
