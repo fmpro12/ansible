@@ -7,5 +7,5 @@
           login_host: "{{ host }}"
           name: "{{ username }}"
           password: "{{ password }}" 
-          priv: '*.*:"{{ permissions }}"'
+          priv: '*.*:{{ permissions }}'
           state: present
