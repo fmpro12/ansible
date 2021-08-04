@@ -1,6 +1,6 @@
 ---
 - name: Update web servers
-  hosts: localhost
+  hosts: "{{ server }}"
   tasks:
    - name: Create database user
      community.mysql.mysql_user:
