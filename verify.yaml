@@ -1,0 +1,6 @@
+- name: Set hostname on conf file
+  lineinfile:
+    dest: /etc/teste/linux/zabbix_agentd.conf
+    regexp: ^Hostname=.*
+    insertafter: ^# Hostname=
+    line: Hostname={{ result.stdout }}
