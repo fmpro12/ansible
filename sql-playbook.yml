@@ -2,10 +2,6 @@
   hosts: 127.0.0.1
 
   tasks:
-   - name: Install pymsql
-     pip_install_packages:
-      - name: pymsql
-      
    - name: Create database user with name 'bob2' and password '12345' with all database privileges
      community.mysql.mysql_user:
         login_host: 10.42.0.38
