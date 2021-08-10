@@ -1,19 +1,12 @@
 - name: Update web servers
   hosts: 127.0.0.1
-  
-  tasks:
-  - name: "Installing apt dependencies"
-    apt:
-     name: "{{item}}"
-    with_items:
-      - python-pip
-      - python-dev 
-      - libmysqlclient-dev
-  - name: "Installing pip dependencies"
-    pip:
-      name: MySQL-python
-      extra_args: --index=https://pypi.python.org/pypi/
-      version: 1.2.3
+  vars:
+  pip_install_packages:
+    - name: pymsql
+  roles:
+  - geerlingguy.pip
+
+
   - name: Create database user with name 'bob2' and password '12345' with all database privileges
     community.mysql.mysql_user:
       login_host: 10.42.0.38
