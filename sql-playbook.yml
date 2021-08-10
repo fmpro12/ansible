@@ -2,14 +2,20 @@
   hosts: 127.0.0.1
   
   tasks:
-- name: Make sure pymysql is present
-  become: true # needed if the other tasks are not played as root
-  pip3:
-    name: pymysql
-    state: present
-
-- name: Create database user with name 'bob2' and password '12345' with all database privileges
-  community.mysql.mysql_user:
+  - name: "Installing apt dependencies"
+    apt:
+     name: "{{item}}"
+    with_items:
+      - python-pip
+      - python-dev 
+      - libmysqlclient-dev
+  - name: "Installing pip dependencies"
+    pip:
+      name: MySQL-python
+      extra_args: --index=https://pypi.python.org/pypi/
+      version: 1.2.3
+  - name: Create database user with name 'bob2' and password '12345' with all database privileges
+    community.mysql.mysql_user:
       login_host: 10.42.0.38
       login_user: admin
       login_password: zubur1 
