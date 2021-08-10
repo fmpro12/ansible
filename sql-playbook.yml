@@ -1,8 +1,12 @@
 - name: Update web servers
   hosts: 127.0.0.1
   tasks:
-   - name: Create database user with name 'bob2' and password '12345' with all database privileges
-     community.mysql.mysql_user:
+    - name: "Install ansible python3 mysql dependency"
+      apt:
+      name: python3-mysqldb
+      state: latest
+    - name: Create database user with name 'bob2' and password '12345' with all database privileges
+      community.mysql.mysql_user:
           login_host: 10.42.0.38
           login_user: admin
           login_password: zubur1 
