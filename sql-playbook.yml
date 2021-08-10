@@ -2,8 +2,19 @@
   hosts: 127.0.0.1
 
   tasks:
-   - name: Create database user with name 'bob2' and password '12345' with all database privileges
-     community.mysql.mysql_user:
+  - name: Install some common packages
+        apt:
+          name: "{{ common_packages }}"
+        vars:
+          common_packages:
+            - python-apt
+            - python-pymysql
+            - python3-apt
+            - python3-pymysql
+        become: true
+        
+  - name: Create database user with name 'bob2' and password '12345' with all database privileges
+    community.mysql.mysql_user:
         login_host: 10.42.0.38
         login_user: admin
         login_password: zubur1 
