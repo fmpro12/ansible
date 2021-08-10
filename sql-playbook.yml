@@ -2,10 +2,6 @@
   hosts: 127.0.0.1
   
   tasks:
-  - name: Install 
-    apt:
-      name: python3-pip
-      state: present
   - name: Pip
     pip:
       name: PyMySQL
