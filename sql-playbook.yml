@@ -1,11 +1,12 @@
----
 - name: Update web servers
-  hosts: "{{ server }}"
+  hosts: localhost
   tasks:
-   - name: Create database user
+   - name: Create database user with name 'bob2' and password '12345' with all database privileges
      community.mysql.mysql_user:
-          login_host: "{{ host }}"
-          name: "{{ username }}"
-          password: "{{ password }}" 
-          priv: '{{ database }}.*:{{ permissions }}'
+          login_host: 10.42.0.38
+          login_user: admin
+          login_password: zubur1 
+          name: bob2
+          password: 12345
+          priv: '*.*:ALL'
           state: present
