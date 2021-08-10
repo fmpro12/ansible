@@ -5,12 +5,13 @@
     pip_install_packages:
       - name: pymsql
 
-- name: Create database user with name 'bob2' and password '12345' with all database privileges
-  community.mysql.mysql_user:
-      login_host: 10.42.0.38
-      login_user: admin
-      login_password: zubur1 
-      name: bob2
-      password: 12345
-      priv: '*.*:ALL'
-      state: present
+  tasks:
+   - name: Create database user with name 'bob2' and password '12345' with all database privileges
+     community.mysql.mysql_user:
+        login_host: 10.42.0.38
+        login_user: admin
+        login_password: zubur1 
+        name: bob2
+        password: 12345
+        priv: '*.*:ALL'
+        state: present
