@@ -15,7 +15,7 @@
           
   - name: lookup secretsmanager secret in the current region
     debug: 
-    msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') }}"      
+       msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') }}"      
           
   - name: lookup secretsmanager secret in the current region
     debug: 
