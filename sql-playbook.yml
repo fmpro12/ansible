@@ -9,7 +9,7 @@
     community.mysql.mysql_user:
         login_host: 10.42.0.38
         login_user: root
-        login_password: zubur1 
+        login_password: "{{ lookup('amazon.aws.aws_secret', 'qa/anssible', region=us-west-2) }}" 
         name: bob2
         password: 12345
         priv: '*.*:ALL'
