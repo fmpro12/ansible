@@ -2,11 +2,11 @@
   hosts: 127.0.0.1
   
   tasks:
-   - name:  
-     pip:
+  - name:  
+    pip:
        name: "{{ item }}"
        state: present
-     with_items:
+    with_items:
           - PyMySQL
           - boto
           - boto3
