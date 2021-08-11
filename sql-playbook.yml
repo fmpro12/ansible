@@ -12,21 +12,17 @@
           - boto3
           - botocore
           - jmespath
-          
-  - name: lookup secretsmanager secret in the current region
-    debug: 
-       msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') }}"      
-          
-  - name: lookup secretsmanager secret in the current region
+
+  - name: lookup secretsmanager user
     debug: 
        msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
           
   - name: Create database user with name 'bob2' and password '12345' with all database privileges
     community.mysql.mysql_user:
         login_host: 10.42.0.38
-        login_user: "{{ user }}"
+        login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
         login_password: zubur1
-        name: bob2
+        name: bob2345
         password: 12345
         priv: '*.*:ALL'
         state: present
