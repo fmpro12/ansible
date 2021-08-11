@@ -19,7 +19,7 @@
           
   - name: lookup secretsmanager secret in the current region
     debug: 
-       msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('\"' + user + '\"') }}"
+       msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
           
   - name: Create database user with name 'bob2' and password '12345' with all database privileges
     community.mysql.mysql_user:
