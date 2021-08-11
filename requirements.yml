@@ -6,3 +6,5 @@ roles:
 collections:
   - name: community.mysql
   - name: amazon.aws
+  - name: community.general
+
