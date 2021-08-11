@@ -18,7 +18,7 @@
   - name: Create database user with name 'bob2' and password '12345' with all database privileges
     community.mysql.mysql_user:
         login_host: 10.42.0.38
-        login_user: "{{ result.user }}"
+        login_user: "{{ result | from_json).get('user') }}"
         login_password: zubur1
         name: bob2
         password: 12345
