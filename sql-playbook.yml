@@ -14,17 +14,14 @@
           - jmespath
           
   - name: lookup secretsmanager secret in the current region
-    debug: msg="{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | json_query('user') }}"
+    debug: msg="{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | json_query(user) }}"
+    vars:
+      user: "msg.user"
           
-  - name: lookup secretsmanager secret in the current region 
-    set_fact:
-        result: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | json_query('user') }}"
-
-            
   - name: Create database user with name 'bob2' and password '12345' with all database privileges
     community.mysql.mysql_user:
         login_host: 10.42.0.38
-        login_user: "{{ result }}"
+        login_user: "{{ user }}"
         login_password: zubur1
         name: bob2
         password: 12345
