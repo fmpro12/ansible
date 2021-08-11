@@ -18,7 +18,7 @@
           
   - name: lookup secretsmanager secret in the current region 
     set_fact:
-        result: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | json_query(user) }}"
+        result: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | json_query('user') }}"
 
             
   - name: Create database user with name 'bob2' and password '12345' with all database privileges
