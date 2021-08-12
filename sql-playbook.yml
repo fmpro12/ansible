@@ -24,7 +24,6 @@
         login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
         password: "{{ password }}"
         name: "{{ username }}"
-        password: "{{ password }}" 
         priv: '{{ database }}.*:{{ permissions }}'
         state: present
        
