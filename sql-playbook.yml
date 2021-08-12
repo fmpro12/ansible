@@ -22,6 +22,7 @@
         login_host: "{{ host }}"
         login_port: "{{ port }}" 
         login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
+        login_password: "{{ dbpassword }}"
         password: "{{ password }}"
         name: "{{ username }}"
         priv: '{{ database }}.*:{{ permissions }}'
