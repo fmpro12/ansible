@@ -19,10 +19,13 @@
           
   - name: Create database user with name 'bob2' and password '12345' with all database privileges
     community.mysql.mysql_user:
-        login_host: 10.42.0.38
+        login_host: "{{ host }}"
+        login_port: "{{ port }}" 
         login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
-        login_password: zubur1
-        name: bob2345
-        password: 12345
-        priv: '*.*:ALL'
+        password: "{{ password }}"
+        name: "{{ username }}"
+        password: "{{ password }}" 
+        priv: '{{ database }}.*:{{ permissions }}'
         state: present
+       
+     
