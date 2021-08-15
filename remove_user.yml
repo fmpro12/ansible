@@ -1,1 +1,27 @@
+- name: Remove user
+  hosts: 127.0.0.1
+  
+  tasks:
+  - name:  
+    pip:
+       name: "{{ item }}"
+       state: present
+    with_items:
+          - PyMySQL
+          - boto
+          - boto3
+          - botocore
+          - jmespath
 
+  - name: lookup secretsmanager user
+    debug: 
+       msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
+          
+  - name: Create database user with name 'bob2' and password '12345' with all database privileges
+    community.mysql.mysql_user:
+        login_host: "{{ host }}"
+        login_port: "{{ port }}" 
+        login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
+        login_password: "{{ dbpassword }}"
+        name: "{{ username }}"
+        state: absent
