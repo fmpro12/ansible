@@ -17,11 +17,12 @@
     debug: 
        msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
           
-  - name: Create database user with name 'bob2' and password '12345' with all database privileges
+  - name: Remove user
     community.mysql.mysql_user:
         login_host: "{{ host }}"
         login_port: "{{ port }}" 
         login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
         login_password: "{{ dbpassword }}"
+        host: '%'
         name: "{{ username }}"
         state: absent
