@@ -28,4 +28,4 @@
         name: "{{ username }}"
         priv: '{{ database }}.*:{{ permissions }}'
         state: present
-    when: username != "root23" 
+    when: username != "root23" and username != "root22"
