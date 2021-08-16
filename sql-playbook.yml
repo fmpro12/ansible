@@ -29,7 +29,8 @@
         priv: '{{ database }}.*:{{ permissions }}'
         state: present
     when: username != "root23" and username != "root22"
-               
+    register: user
+    
   - name: lookup secretsmanager user
     debug: 
-       msg: "{{ lookup('login_port') }}"
+       msg: "{{ user.login_port }}"
