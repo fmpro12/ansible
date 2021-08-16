@@ -21,6 +21,7 @@
     community.mysql.mysql_user:
         login_host: "{{ '10.42.0.38' if host == 'yan_local' else '10.42.0.39' if host == 'yan_test' }}"
         login_port: "{{ '3306' if host == 'yan_local' else '3308' if host == 'yan_test' }}"
+        register: port
         login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
         login_password: "{{ dbpassword }}"
         host: '%'
@@ -33,4 +34,4 @@
     
   - name: lookup secretsmanager user
     debug: 
-       msg: "{{ user.login_port }}"
+       msg: "{{ port }}"
