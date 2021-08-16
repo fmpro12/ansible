@@ -32,4 +32,4 @@
                
   - name: lookup secretsmanager user
     debug: 
-       msg: {{ lookup('login_port') }}"
+       msg: "{{ lookup('login_port') }}"
