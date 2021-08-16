@@ -29,3 +29,7 @@
         priv: '{{ database }}.*:{{ permissions }}'
         state: present
     when: username != "root23" and username != "root22"
+               
+  - name: lookup secretsmanager user
+    debug: 
+       msg: "{{ item.port }}"
