@@ -20,7 +20,6 @@
           - boto3
           - botocore
           - jmespath
-          - mysqlclient
 
   - name: lookup password
     debug: 
