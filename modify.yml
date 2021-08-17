@@ -20,7 +20,11 @@
           - boto3
           - botocore
           - jmespath
-          - mysqlclient
+          
+  - name: Install mysql
+    yum:
+      name: mysql
+      state: present         
 
   - name: lookup secretsmanager user
     debug: 
