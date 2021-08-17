@@ -23,7 +23,7 @@
 
   - name: lookup db
     debug: 
-       msg: "{{ host }}"
+       msg: "{{ database_name }}"
     
     
   - name: lookup secretsmanager user
@@ -43,7 +43,7 @@
         state: present
     when: username != "root23" and username != "root22"   
     with_items:
-        - "{{ host }}"
+        - "{{ database_name }}"
     
   - name: Database details
     debug: 
