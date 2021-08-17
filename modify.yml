@@ -25,7 +25,7 @@
     yum:
       name: mysql
       state: present
-    become: true
+    sudo: yes
 
   - name: lookup secretsmanager user
     debug: 
