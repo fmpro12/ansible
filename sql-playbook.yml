@@ -35,4 +35,4 @@
 
   - name: Database details
     debug: 
-       msg: "{{ port }}"
+       msg: '{{ database_name }}-{{ host }}:{{ port }}'
