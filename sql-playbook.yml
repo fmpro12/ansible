@@ -21,11 +21,7 @@
           - botocore
           - jmespath
 
-  - name: lookup db
-    debug: 
-       msg: "{{ database_name }}"
-    
-    
+   
   - name: lookup secretsmanager user
     debug: 
        msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
