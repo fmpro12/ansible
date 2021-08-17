@@ -6,7 +6,7 @@
      database: "{{ 'yan' if host == 'yan_local' else 'backgammon' if host == 'DEV_Backgammon' else 'spades' if host == 'DEV_Spades' else 'rummy' if host == 'DEV_Rummy' else 'backgammon' if host == 'QA1_Backgammon' else '3321' if host == 'spades' else 'rummy' if host == 'QA1_Rummy' else 'backgammon' if host == 'QA1_Domino' else 'rummy' if host == 'QA1_CasualRummy' else 'backgammon' if host == 'QA2_Backgammon' else '3323' if host == 'spades' else 'backgammon' if host == 'Stage_Backgammon' else 'spades' if host == 'Stage_Spades' else '3332' if host == 'rummy' }}"
      dbpassword_yan: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('password') }}"
      dbpassword_qa: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('db_pass') }}"
-     dbpassword: "{{ 'dbpassword_yan' if host == 'yan_local' else 'dbpassword_qa' if host != 'yan_local' }}"
+     dbpassword: "{{ lookup('vars', dbpassword_yan) if host == 'yan_local' else lookup('vars', dbpassword_qa) if host != 'yan_local' }}"
      
      
   tasks:
