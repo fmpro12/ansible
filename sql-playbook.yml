@@ -8,6 +8,7 @@
      dbpassword_qa: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('db_pass') }}"
      dbpassword: "{{ 'dbpassword_yan' if host == 'yan_local' else 'dbpassword_qa' if host != 'yan_local' }}"
      
+     
   tasks:
   - name:  
     pip:
@@ -20,6 +21,11 @@
           - botocore
           - jmespath
 
+  - name: lookup password
+    debug: 
+       msg: "{{ dbpassword }}"
+    
+    
   - name: lookup secretsmanager user
     debug: 
        msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
