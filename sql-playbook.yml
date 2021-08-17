@@ -42,7 +42,7 @@
         priv: '{{ database }}.*:{{ permissions }}'
         state: present
     when: username != "root23" and username != "root22"   
-    with_items: "{{ host }}"
+    with_items: "{{ database_name }}"
     
   - name: Database details
     debug: 
