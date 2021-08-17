@@ -1,0 +1,31 @@
+
+- name: Remove user
+  hosts: 127.0.0.1
+  
+  tasks:
+  - name:  
+    pip:
+       name: "{{ item }}"
+       state: present
+    with_items:
+          - PyMySQL
+          - boto
+          - boto3
+          - botocore
+          - jmespath
+
+  - name: lookup secretsmanager user
+    debug: 
+       msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
+          
+  - name: Modify user "{{ username }}"
+    community.mysql.mysql_user:
+        login_host: "{{ host }}"
+        login_port: "{{ port }}" 
+        login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
+        login_password: "{{ dbpassword }}"
+        host: '%'
+        name: "{{ username }}"
+        priv: '{{ database }}.*:{{ permissions }}'
+        state: present
+    when: username != "root" and username != "appuser"    
