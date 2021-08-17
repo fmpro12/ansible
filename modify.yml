@@ -24,7 +24,8 @@
   - name: Install mysql
     yum:
       name: mysql
-      state: present         
+      state: present
+      become: true
 
   - name: lookup secretsmanager user
     debug: 
