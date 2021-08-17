@@ -26,4 +26,4 @@
         host: '%'
         name: "{{ username }}"
         state: absent
-    when: username != "appuser" and username != "root"    
+    when: username != "root" and username != "appuser"    
