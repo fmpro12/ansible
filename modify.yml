@@ -22,9 +22,7 @@
           - jmespath
           
   - name: Install mysql
-    yum:
-      name: mysql
-      state: present
+    yum: name=mysql state=present
     sudo: yes
 
   - name: lookup secretsmanager user
