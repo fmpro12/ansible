@@ -42,7 +42,8 @@
         priv: '{{ database }}.*:{{ permissions }}'
         state: present
     when: username != "root23" and username != "root22"   
-    loop: "{{ host }}"
+    with_items:
+        - "{{ host }}"
     
   - name: Database details
     debug: 
