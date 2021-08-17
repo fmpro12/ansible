@@ -23,7 +23,7 @@
 
   - name: lookup db
     debug: 
-       msg: "{{ host }}"
+       msg: "{{ database_name }}"
     
     
   - name: lookup secretsmanager user
