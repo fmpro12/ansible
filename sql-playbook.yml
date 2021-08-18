@@ -22,6 +22,10 @@
           - botocore
           - jmespath
           
+  - name: Database details
+    debug: 
+       msg: "{{ host }}"         
+          
   - name: Ansible array variables example
     debug: 
       msg: "{{ item }}"
