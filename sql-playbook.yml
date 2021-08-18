@@ -32,10 +32,6 @@
 
   - debug: var=foo
     
-  - name: Database details
-    debug: 
-       msg: '{{ database_name }}/{{ database }}-{{ host }}:{{ port }}'
-     
   - name: Create database user with name "{{ username }}" and password "{{ password }}" 
     community.mysql.mysql_user:
         login_host: "{{ item }}"
