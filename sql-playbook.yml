@@ -25,7 +25,7 @@
     set_fact: foo_item="{{ item }}"
     with_items:
       - "{{ host }}"
-     register: foo_result
+    register: foo_result
     
   - name: make a list
     set_fact: foo="{{ foo_result.results | map(attribute='ansible_facts.foo_item') | list }}"
