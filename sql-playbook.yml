@@ -27,7 +27,7 @@
     debug: 
       msg: "{{ item }}"
     with_items:
-      - "{{ database_name }}"          
+      - "{{ database_name.results }}"          
     
   - name: Database details
     debug: 
