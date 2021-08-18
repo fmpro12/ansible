@@ -38,7 +38,7 @@
         priv: "{{ 'yan' if host == 'yan_local' else 'backgammon' if host == 'DEV_Backgammon' else 'spades' if host == 'DEV_Spades' else 'rummy' if host == 'DEV_Rummy' else 'backgammon' if host == 'QA1_Backgammon' else '3321' if host == 'spades' else 'rummy' if host == 'QA1_Rummy' else 'backgammon' if host == 'QA1_Domino' else 'rummy' if host == 'QA1_CasualRummy' else 'backgammon' if host == 'QA2_Backgammon' else '3323' if host == 'spades' else 'backgammon' if host == 'Stage_Backgammon' else 'spades' if host == 'Stage_Spades' else '3332' if host == 'rummy' }}.*:{{ permissions }}"
         state: present
     when: username != "root23" and username != "root22"
-    loop: "{{ host }}"
+    loop: "{{ database_name }}"
 
     
   - name: Database details
