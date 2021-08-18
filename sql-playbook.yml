@@ -8,8 +8,7 @@
      dbpassword_qa: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('db_pass') }}"
      dbpassword: "{{ lookup('vars', 'dbpassword_yan') if host == 'yan_local' else lookup('vars', 'dbpassword_qa') if host != 'yan_local' }}"
      host: []
- 
-- name: set list
+
   set_fact: database_name="{{ '10.42.0.38' if host == 'yan_local' else '172.31.0.176' if host == 'DEV_Backgammon' else '172.31.0.176' if host == 'DEV_Spades' else '172.31.0.176' if host == 'DEV_Rummy' else '172.31.0.176' if host == 'QA1_Backgammon' else '172.31.0.176' if host == 'QA1_Spades' else '172.31.0.176' if host == 'QA1_Rummy' else '172.31.0.176' if host == 'QA1_Domino' else '172.31.0.176' if host == 'QA1_CasualRummy' else '172.31.0.176' if host == 'QA2_Backgammon' else '172.31.0.176' if host == 'QA2_Spades' else '172.31.0.176' if host == 'Stage_Backgammon' else '172.31.0.176' if host == 'Stage_Spades' else '172.31.0.176' if host == 'Stage_Rummy' }}"
   register: database_name_list      
      
