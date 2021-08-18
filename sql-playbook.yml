@@ -22,15 +22,12 @@
           - jmespath   
           
   - name: Ansible set facts
-    set_fact: 
-      database_name: "{{ '10.42.0.38' if host == 'yan_local' else '172.31.0.176' if host == 'DEV_Backgammon' else '172.31.0.176' if host == 'DEV_Spades' else '172.31.0.176' if host == 'DEV_Rummy' else '172.31.0.176' if host == 'QA1_Backgammon' else '172.31.0.176' if host == 'QA1_Spades' else '172.31.0.176' if host == 'QA1_Rummy' else '172.31.0.176' if host == 'QA1_Domino' else '172.31.0.176' if host == 'QA1_CasualRummy' else '172.31.0.176' if host == 'QA2_Backgammon' else '172.31.0.176' if host == 'QA2_Spades' else '172.31.0.176' if host == 'Stage_Backgammon' else '172.31.0.176' if host == 'Stage_Spades' else '172.31.0.176' if host == 'Stage_Rummy' }}"
+    set_fact: database_name="{{ '10.42.0.38' if host == 'yan_local' else '172.31.0.176' if host == 'DEV_Backgammon' else '172.31.0.176' if host == 'DEV_Spades' else '172.31.0.176' if host == 'DEV_Rummy' else '172.31.0.176' if host == 'QA1_Backgammon' else '172.31.0.176' if host == 'QA1_Spades' else '172.31.0.176' if host == 'QA1_Rummy' else '172.31.0.176' if host == 'QA1_Domino' else '172.31.0.176' if host == 'QA1_CasualRummy' else '172.31.0.176' if host == 'QA2_Backgammon' else '172.31.0.176' if host == 'QA2_Spades' else '172.31.0.176' if host == 'Stage_Backgammon' else '172.31.0.176' if host == 'Stage_Spades' else '172.31.0.176' if host == 'Stage_Rummy' }}"
+    with_items: ""{{ host }}""
     register: database_name_list   
     
   - name: Ansible array variables example
-    debug: 
-      msg: "{{ item }}"
-    with_items:
-      - "{{ database_name.results }}"     
+   debug: msg="{{ database_name_list.results | map(attribute='ansible_facts.database_name_list') | list }}"  
     
   - name: Database details
     debug: 
