@@ -27,7 +27,7 @@
     register: database_name_list   
     
   - name: Ansible array variables example
-   debug: msg="{{ database_name_list.results | map(attribute='ansible_facts.database_name_list') | list }}"  
+    debug: msg="{{ database_name_list.results | map(attribute='ansible_facts.database_name_list') | list }}"  
     
   - name: Database details
     debug: 
