@@ -22,19 +22,16 @@
           - botocore
           - jmespath
           
-  - name: Database details
-    debug: 
-       msg: "{{ host }}"         
           
   - name: Ansible array variables example
     debug: 
       msg: "{{ item }}"
     with_items:
-      - "{{ host }}"          
+      - "{{ database_name }}"          
        
   - name: Create database user with name "{{ username }}" and password "{{ password }}" 
     community.mysql.mysql_user:
-        login_host: "{{ database_name }}"
+        login_host: "{{ item }}"
         login_port: "{{ port }}"
         login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
         login_password: "{{ dbpassword }}"
@@ -44,8 +41,8 @@
         priv: '{{ database }}.*:{{ permissions }}'
         state: present
     when: username != "root23" and username != "root22"   
-#    with_items:
-  #      - "{{ database_name }}"
+    with_items:
+        - "{{ database_name }}"
     
   - name: Database details
     debug: 
