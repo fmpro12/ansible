@@ -21,6 +21,18 @@
           - botocore
           - jmespath   
           
+  - name: set fact
+    set_fact: foo_item="{{ item }}"
+    with_items:
+      - "{{ database_name }}"
+      - "{{ port }}"
+      - "{{ database }}"
+    register: foo_result
+    
+  - name: make a list
+    set_fact: foo="{{ foo_result.results | map(attribute='ansible_facts.foo_item') | list }}"
+
+  - debug: var=foo
     
   - name: Database details
     debug: 
