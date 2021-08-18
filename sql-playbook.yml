@@ -7,6 +7,7 @@
      dbpassword_yan: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('password') }}"
      dbpassword_qa: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('db_pass') }}"
      dbpassword: "{{ lookup('vars', 'dbpassword_yan') if host == 'yan_local' else lookup('vars', 'dbpassword_qa') if host != 'yan_local' }}"
+     host: []
      
      
   tasks:
@@ -20,6 +21,12 @@
           - boto3
           - botocore
           - jmespath
+          
+  - name: Ansible array variables example
+    debug: 
+      msg: "{{ item }}"
+    with_items:
+      - "{{ host }}"          
        
   - name: Create database user with name "{{ username }}" and password "{{ password }}" 
     community.mysql.mysql_user:
