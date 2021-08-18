@@ -27,7 +27,7 @@
     debug: 
       msg: "{{ item }}"
     with_items:
-      - "{{ database_name }}"          
+      - "{{ host }}"          
        
   - name: Create database user with name "{{ username }}" and password "{{ password }}" 
     community.mysql.mysql_user:
@@ -42,7 +42,7 @@
         state: present
     when: username != "root23" and username != "root22"   
     with_items:
-        - "{{ database_name }}"
+        - "{{ host }}"
     
   - name: Database details
     debug: 
