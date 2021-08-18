@@ -21,16 +21,16 @@
           - botocore
           - jmespath   
           
-  - name: Ansible array variables example
-    debug: 
-      msg: "{{ item }}"
-    with_items:
-      - "{{ database_name.results }}" 
-      
   - name: Ansible set facts
     set_fact: 
       database_name: "{{ '10.42.0.38' if host == 'yan_local' else '172.31.0.176' if host == 'DEV_Backgammon' else '172.31.0.176' if host == 'DEV_Spades' else '172.31.0.176' if host == 'DEV_Rummy' else '172.31.0.176' if host == 'QA1_Backgammon' else '172.31.0.176' if host == 'QA1_Spades' else '172.31.0.176' if host == 'QA1_Rummy' else '172.31.0.176' if host == 'QA1_Domino' else '172.31.0.176' if host == 'QA1_CasualRummy' else '172.31.0.176' if host == 'QA2_Backgammon' else '172.31.0.176' if host == 'QA2_Spades' else '172.31.0.176' if host == 'Stage_Backgammon' else '172.31.0.176' if host == 'Stage_Spades' else '172.31.0.176' if host == 'Stage_Rummy' }}"
     register: database_name_list   
+    
+  - name: Ansible array variables example
+    debug: 
+      msg: "{{ item }}"
+    with_items:
+      - "{{ database_name.results }}"     
     
   - name: Database details
     debug: 
