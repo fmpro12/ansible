@@ -10,7 +10,11 @@
         content: |
                   #!/usr/bin/python
                   print ('Hello, world!')
-    become: yes              
+    become: yes  
+
+  - name: Changing perm of "/home/script.py", adding "+x"
+    file: dest=/home/script.py mode=a+x  
+    become: yes          
 
   - name: Execute script
     command: /home/script.py
