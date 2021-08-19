@@ -4,7 +4,7 @@
      
   tasks:
 
-  - name: Creating a file with content
+  - name: Creating a file with 
     copy:
         dest: "script.py"
         content: |
