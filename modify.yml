@@ -20,6 +20,10 @@
           - boto3
           - botocore
           - jmespath
+
+  - name: Database details
+    debug: 
+       msg: '{{ database_name }}/{{ database }}-{{ host }}:{{ port }}'       
           
   - name: Modify user "{{ username }}"
     community.mysql.mysql_user:
