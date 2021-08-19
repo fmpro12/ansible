@@ -1,0 +1,21 @@
+- name: Update web servers
+  hosts: 127.0.0.1
+
+     
+  tasks:
+
+  - name: Creating a file with content
+    copy:
+        dest: "script.py"
+        content: |
+                  #!/usr/bin/python
+
+                  # write to a file
+                  f = open('/tmp/test_from_python','w')
+                  f.write('hi there\n')
+
+  - name: Execute script
+    command: script.py
+            
+    
+
