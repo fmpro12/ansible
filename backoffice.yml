@@ -10,8 +10,11 @@
         content: |
                   #!/usr/bin/python
                   print ('Hello, world!')
+    become: yes              
+
   - name: Execute script
     command: /home/script.py
+    become: yes
             
     
 
