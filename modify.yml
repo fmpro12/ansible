@@ -21,21 +21,6 @@
           - botocore
           - jmespath
           
-  - name: Install mysql
-    yum: name=mysql state=present
-
-  - name: lookup secretsmanager user
-    debug: 
-       msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
-    
-  - name: check if user exists
-    shell: mysql -u root -p'zubur1' -h 10.42.0.38 -P 3306 --execute="SELECT count(*) FROM mysql.user WHERE user = 'bob3';"
-    register: status
-    
-  - name: lookup secretsmanager user
-    debug: 
-       msg: "{{ status }}"
-          
   - name: Modify user "{{ username }}"
     community.mysql.mysql_user:
         login_host: "{{ database_name }}"
