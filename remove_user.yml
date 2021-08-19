@@ -19,14 +19,10 @@
           - boto3
           - botocore
           - jmespath
-
-  - name: lookup secretsmanager user
-    debug: 
-       msg: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
           
-  - name: Remove user
+  - name: Remove user "{{ username }}"
     community.mysql.mysql_user:
-        login_host: "{{ host }}"
+        login_host: "{{ database_name }}"
         login_port: "{{ port }}" 
         login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
         login_password: "{{ dbpassword }}"
