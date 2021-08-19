@@ -6,12 +6,12 @@
 
   - name: Creating a file with 
     copy:
-        dest: "home/script.py"
+        dest: "/home/script.py"
         content: |
                   #!/usr/bin/python
                   print ('Hello, world!')
   - name: Execute script
-    command: home/script.py
+    command: /home/script.py
             
     
 
