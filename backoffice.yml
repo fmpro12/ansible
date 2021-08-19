@@ -6,7 +6,7 @@
 
   - name: Creating a file with 
     copy:
-        dest: "/home/script.py"
+        dest: "home/script.py"
         content: |
                   #!/usr/bin/python
                   print ('Hello, world!')
