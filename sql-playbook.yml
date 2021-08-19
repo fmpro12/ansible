@@ -20,6 +20,10 @@
           - botocore
           - jmespath   
           
+  - name: Database details
+    debug: 
+       msg: '{{ host }}:{{ port }}'          
+          
     
   - name: Create database user with name "{{ username }}" and password "{{ password }}" 
     community.mysql.mysql_user:
