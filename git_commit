@@ -1,2 +1,2 @@
 #!/bin/bash
-Make git m="message123"
+make git m="message123"
