@@ -3,6 +3,13 @@
 
      
   tasks:
+  - name:  
+    yum:
+       name: "{{ item }}"
+       state: present
+    with_items:
+          - sudo
+
     
   - name: Creating a file with 
     copy:
