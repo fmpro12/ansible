@@ -2,15 +2,7 @@
   hosts: 127.0.0.1
 
      
-  tasks:
-  - name:  
-    yum:
-       name: "{{ item }}"
-       state: present
-    with_items:
-          - sudo
-
-    
+  tasks:    
   - name: Creating a file with 
     copy:
         dest: "/home/script.py"
