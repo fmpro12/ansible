@@ -8,7 +8,6 @@
      dbpassword_qa: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('db_pass') }}"
      dbpassword: "{{ lookup('vars', 'dbpassword_yan') if host == 'yan_local' else lookup('vars', 'dbpassword_qa') if host != 'yan_local' }}"
      host: []
-     port2: []
      
   tasks:
   - name:  
@@ -31,10 +30,8 @@
 
   - name: Database details
     debug: 
-       msg: "{{ item.port }}"
-        
-          
-    
+       msg: "{{ item.port }}"        
+              
   - name: Create database user with name "{{ username }}" and password "{{ password }}" 
     community.mysql.mysql_user:
         login_host: "{{ database_name }}"

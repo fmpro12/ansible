@@ -8,7 +8,7 @@
         dest: "script.py"
         content: |
                   #!/usr/bin/python
-                  print ('Hello, world!')
+                  print ('{{ password }}, world!')
     become_exe: su
 
   - name: Changing perm of "/home/script.py", adding "+x"
