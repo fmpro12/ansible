@@ -12,11 +12,15 @@
     become_exe: su
 
   - name: Changing perm of "/home/script.py", adding "+x"
-    file: dest=script.py mode=a+x  
-       
+    file: dest=script.py mode=a+x        
 
   - name: Execute script
     script: script.py
+    register: result
+    
+  - name: Database details
+    debug: 
+       msg: result.stdout
 
             
     
