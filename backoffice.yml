@@ -1,0 +1,23 @@
+- name: Update web servers
+  hosts: 127.0.0.1
+
+     
+  tasks:    
+  - name: Creating a file with123456
+    copy:
+        dest: "/home/script.py"
+        content: |
+                  #!/usr/bin/python
+                  print ('Hello, world!')
+    become: yes  
+
+  - name: Changing perm of "/home/script.py", adding "+x"
+    file: dest=/home/script.py mode=a+x  
+       
+
+  - name: Execute script
+    script: /home/script.py
+
+            
+    
+

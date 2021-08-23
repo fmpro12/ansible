@@ -1,0 +1,32 @@
+- name: Update web servers
+  hosts: 127.0.0.1
+  vars:
+     port: "{{ '3306' if host == 'yan_local' else '3310' if host == 'DEV_Backgammon' else '3320' if host == 'DEV_Spades' else '3330' if host == 'DEV_Rummy' else '3311' if host == 'QA1_Backgammon' else '3321' if host == 'QA1_Spades' else '3331' if host == 'QA1_Rummy' else '3341' if host == 'QA1_Domino' else '3351' if host == 'QA1_CasualRummy' else '3313' if host == 'QA2_Backgammon' else '3323' if host == 'QA2_Spades' else '3312' if host == 'Stage_Backgammon' else '3322' if host == 'Stage_Spades' else '3332' if host == 'Stage_Rummy' }}"
+     database_name: "{{ '10.42.0.38' if host == 'yan_local' else '172.31.0.176' if host == 'DEV_Backgammon' else '172.31.0.176' if host == 'DEV_Spades' else '172.31.0.176' if host == 'DEV_Rummy' else '172.31.0.176' if host == 'QA1_Backgammon' else '172.31.0.176' if host == 'QA1_Spades' else '172.31.0.176' if host == 'QA1_Rummy' else '172.31.0.176' if host == 'QA1_Domino' else '172.31.0.176' if host == 'QA1_CasualRummy' else '172.31.0.176' if host == 'QA2_Backgammon' else '172.31.0.176' if host == 'QA2_Spades' else '172.31.0.176' if host == 'Stage_Backgammon' else '172.31.0.176' if host == 'Stage_Spades' else '172.31.0.176' if host == 'Stage_Rummy' }}"
+     database: "{{ 'yan' if host == 'yan_local' else 'backgammon' if host == 'DEV_Backgammon' else 'spades' if host == 'DEV_Spades' else 'rummy' if host == 'DEV_Rummy' else 'backgammon' if host == 'QA1_Backgammon' else '3321' if host == 'spades' else 'rummy' if host == 'QA1_Rummy' else 'backgammon' if host == 'QA1_Domino' else 'rummy' if host == 'QA1_CasualRummy' else 'backgammon' if host == 'QA2_Backgammon' else '3323' if host == 'spades' else 'backgammon' if host == 'Stage_Backgammon' else 'spades' if host == 'Stage_Spades' else '3332' if host == 'rummy' }}"
+     dbpassword_yan: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('password') }}"
+     dbpassword_qa: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('db_pass') }}"
+     dbpassword: "{{ lookup('vars', 'dbpassword_yan') if host == 'yan_local' else lookup('vars', 'dbpassword_qa') if host != 'yan_local' }}"
+     
+  tasks:
+  - name:  
+    pip:
+       name: "{{ item }}"
+       state: present
+    with_items:
+          - PyMySQL
+          - boto
+          - boto3
+          - botocore
+          - jmespath             
+              
+  - name: Remove user "{{ username }}"
+    community.mysql.mysql_user:
+        login_host: "{{ database_name }}"
+        login_port: "{{ port }}" 
+        login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
+        login_password: "{{ dbpassword }}"
+        host: '%'
+        name: "{{ username }}"
+        state: absent
+    when: username != "root" and username != "appuser"    
