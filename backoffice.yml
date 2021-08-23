@@ -5,7 +5,7 @@
   tasks:    
   - name: Creating a file with123
     copy:
-        dest: "/home/script.py"
+        dest: "script.py"
         content: |
                   #!/usr/bin/python
                   print ('Hello, world!')
@@ -16,7 +16,7 @@
        
 
   - name: Execute script
-    script: /home/script.py
+    script: script.py
 
             
     
