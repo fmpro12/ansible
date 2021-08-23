@@ -1,0 +1,4 @@
+#!/bin/bash
+make git m="message123"
+make git o="prod"
+make git r="master"
