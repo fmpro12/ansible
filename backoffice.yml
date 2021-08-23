@@ -20,7 +20,7 @@
     
   - name: Database details
     debug: 
-       msg: result.stdout
+       msg: result
 
             
     
