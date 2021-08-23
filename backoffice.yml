@@ -9,7 +9,7 @@
         content: |
                   #!/usr/bin/python
                   print ('Hello, world!')
-    become: yes  
+    become_exe: su
 
   - name: Changing perm of "/home/script.py", adding "+x"
     file: dest=/home/script.py mode=a+x  
