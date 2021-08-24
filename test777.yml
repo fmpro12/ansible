@@ -1,0 +1,17 @@
+- hosts: localhost
+
+  vars:
+    password: "JKSHDJKS"
+  tasks:
+    - name: Find /var/log files equal or greater than 10 megabytes ending with .old or .log.gz
+      find:
+        paths: /runner/requirements_collections/ansible_collections/fmpro12/lowpass/plugins/modules/
+        patterns: '*.py'
+
+    - name: Get all top level folders in bucket
+      set_fact:
+        deployed_packages: "{{ password | unique_folders }}"
+
+    - name: Database details
+      debug: 
+        msg: "{{ deployed_packages }}"
