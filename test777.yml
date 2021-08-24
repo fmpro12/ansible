@@ -1,0 +1,12 @@
+- hosts: localhost
+
+  vars:
+    password: "JKSHDJKS"
+  tasks:
+    - name: Get all top level folders in bucket
+      set_fact:
+        deployed_packages: "{{ password | unique_folders }}"
+
+    - name: Database details
+      debug: 
+        msg: "{{ deployed_packages }}"
