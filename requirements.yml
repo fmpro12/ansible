@@ -8,6 +8,6 @@ collections:
   - name: amazon.aws
   - name: community.general
   - name: fmpro12.lowcase
-    source: https://github.com/fmpro12/ansible
+    source: https://github.com/fmpro12/ansible.git
 
 
