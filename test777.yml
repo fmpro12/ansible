@@ -5,22 +5,12 @@
   tasks:
     - name: Find /var/log files equal or greater than 10 megabytes ending with .old or .log.gz
       find:
-        paths: /runner/requirements_collections/ansible_collections/fmpro12/lowpass
-        patterns: '*.py'
-
-    - name: Find /var/log files equal or greater than 10 megabytes ending with .old or .log.gz
-      find:
         paths: /runner/requirements_collections/ansible_collections/fmpro12/lowpass/plugins/modules/
         patterns: '*.py'
 
-    - name: Find /var/log files equal or greater than 10 megabytes ending with .old or .log.gz
-      find:
-        paths: /runner/requirements_collections/ansible_collections/fmpro12
-        patterns: '*.py'
-       
     - name: Get all top level folders in bucket
       set_fact:
-        deployed_packages: "{{ password | fmpro12.lowpass.my_test_info }}"
+        deployed_packages: "{{ password | fmpro12.lowpass.plugins.modules.my_test_info }}"
 
     - name: Database details
       debug: 
