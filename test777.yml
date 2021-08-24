@@ -5,7 +5,7 @@
   tasks:
     - name: Find /var/log files equal or greater than 10 megabytes ending with .old or .log.gz
       find:
-        paths: /awx/.ansible/collections/ansible_collections/fmpro12/lowpass/plugins/modules/
+        paths: /var/lib/awx/venv/ansible/collections/ansible_collections/fmpro12/lowpass/plugins/modules/
         patterns: '*.py'
        
     - name: Get all top level folders in bucket
