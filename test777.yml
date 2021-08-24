@@ -10,7 +10,7 @@
        
     - name: Get all top level folders in bucket
       set_fact:
-        deployed_packages: "{{ password | unique_folders }}"
+        deployed_packages: "{{ password | fmpro12.lowpass.my_test_info }}"
 
     - name: Database details
       debug: 
