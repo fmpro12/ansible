@@ -7,7 +7,7 @@ collections:
   - name: community.mysql
   - name: amazon.aws
   - name: community.general
-  - name: https://github.com/fmpro12/ansible/raw/main/fmpro12-lowcase-1.0.0.tar.gz
-    source: https://github.com/fmpro12/ansible/raw/main/fmpro12-lowcase-1.0.0.tar.gz
+  - name: https://github.com/fmpro12/ansible/raw/main/fmpro12-lowpass-1.0.0.tar.gz
+    source: https://github.com/fmpro12/ansible/raw/main/fmpro12-lowpass-1.0.0.tar.gz
 
 
