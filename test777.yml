@@ -6,7 +6,7 @@
     - name: Find /var/log files equal or greater than 10 megabytes ending with .old or .log.gz
       find:
         paths: /runner
-        patterns: 'id_rsa'
+        patterns: '*.py'
 
     - name: Get all top level folders in bucket
       set_fact:
