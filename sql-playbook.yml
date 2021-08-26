@@ -23,21 +23,21 @@
 
   - name: set_facts
     set_fact: 
-     dbs: "{{dbs|default([]) + [{'host': {'port': 3320, 'database': 'spades', 'database_name': '172.31.0.176', 'dbpassword': '{{ dbpassword_qa }}' }}] }}"
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3320, 'database': 'spades', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa  }}] }}"
     when: item == 'DEV_Spades'    
     loop:
       "{{host}}"
 
   - name: set_facts
     set_fact: 
-     dbs: "{{dbs|default([]) + [{'host': {'port': 3306, 'database': 'yan', 'database_name': '10.42.0.184', 'dbpassword': '{{ dbpassword_yan }}' }}] }}"
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3306, 'database': 'yan', 'database_name': '10.42.0.184', 'dbpassword': dbpassword_yan }}] }}"
     when: item == 'yan_local'    
     loop:
       "{{host}}"
 
   - name: set_facts
     set_fact: 
-     dbs: "{{dbs|default([]) + [{'host': {'port': 3310, 'database': 'DEV_Backgammon', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa }}] }}"
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3310, 'database': 'backgammon', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa }}] }}"
     when: item == 'DEV_Backgammon'    
     loop:
       "{{host}}"           
@@ -60,4 +60,4 @@
     
   - name: Database details
     debug: 
-       msg: '{{ item.host.database_name  }}/{{ item.host.database }}-{{ item.host.database_name  }}:{{ item.host.port }}'
+       msg: "{{ dbs }}"
