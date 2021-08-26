@@ -54,4 +54,4 @@
     
   - name: Database details
     debug: 
-       msg: '{{ database_name }}/{{ database }}-{{ host }}:{{ port }}'
+       msg: '{{ item.host.database_name  }}/{{ item.host.database }}-{{ item.host.database_name  }}:{{ item.host.port }}'
