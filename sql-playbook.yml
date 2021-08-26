@@ -24,14 +24,14 @@
 
   - name: set_facts
     set_fact: 
-     dbs: "{{dbs|default([]) + [{'host': {'port': 3306, 'database': 'yan', 'database_name': '10.42.0.38' }}] }}"
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3306, 'database': 'yan', 'database_name': '10.42.0.38', 'dbpassword': dbpassword_yan }}] }}"
     when: item == 'yan_local'    
     loop:
       "{{host}}"
 
   - name: set_facts
     set_fact: 
-     dbs: "{{dbs|default([]) + [{'host': {'port': 3310, 'database': 'DEV_Backgammon', 'database_name': '172.31.0.176' }}] }}"
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3310, 'database': 'DEV_Backgammon', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa }}] }}"
     when: item == 'DEV_Backgammon'    
     loop:
       "{{host}}"           
