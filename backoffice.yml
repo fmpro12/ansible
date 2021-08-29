@@ -1,26 +1,138 @@
-- name: Update web servers
+- name: Create backoffice user!
   hosts: 127.0.0.1
 
-     
-  tasks:    
-  - name: Creating a file with123
-    copy:
-        dest: "script.py"
-        content: |
-                  #!/usr/bin/python
-                  print ('{{ password }}, world!')
-    become_exe: su
-
-  - name: Changing perm of "/home/script.py", adding "+x"
-    file: dest=script.py mode=a+x        
-
-  - name: Execute script
-    script: script.py
-    register: result
+  vars:
+    host: []  
+    password: "{{ password }}"
+    username: "{{ username }}"
+    email: "{{ email }}"
+    clone_user: "{{ clone_user }}"
+    dbpassword_yan: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('password') }}"
+    dbpassword_qa: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('db_pass') }}"
+    dbpassword: "{{ lookup('vars', 'dbpassword_yan') if host == 'yan_local' else lookup('vars', 'dbpassword_qa') if host != 'yan_local' }}" 
     
-  - name: Database details
-    debug: 
-       msg: "{{ result.stdout }}"
+  tasks:
+  - name:  
+    pip:
+      name: "{{ item }}"
+      state: present
+    with_items:
+          - PyMySQL
+          - boto
+          - boto3
+          - botocore
+          - jmespath 
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3332, 'database': 'rummy', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'rummy.fos_user_user' }}] }}"
+    when: item == 'Stage_Rummy'    
+    loop:
+      "{{host}}"
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3322, 'database': 'spades', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'spades.fos_user_user' }}] }}"
+    when: item == 'Stage_Spades'    
+    loop:
+      "{{host}}"
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3312, 'database': 'backgammon', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'backgammon.fos_user_user'  }}] }}"
+    when: item == 'Stage_Backgammon'    
+    loop:
+      "{{host}}"
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3323, 'database': 'spades', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'spades.fos_user_user' }}] }}"
+    when: item == 'QA2_Spades'    
+    loop:
+      "{{host}}"
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3313, 'database': 'backgammon', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'backgammon.fos_user_user' }}] }}"
+    when: item == 'QA2_Backgammon'    
+    loop:
+      "{{host}}"
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3351, 'database': 'rummy', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'rummy.fos_user_user' }}] }}"
+    when: item == 'QA1_CasualRummy'    
+    loop:
+      "{{host}}"          
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3341, 'database': 'backgammon', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'backgammon.fos_user_user' }}] }}"
+    when: item == 'QA1_Domino'    
+    loop:
+      "{{host}}" 
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3331, 'database': 'rummy', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'rummy.fos_user_user' }}] }}"
+    when: item == 'QA1_Rummy'    
+    loop:
+      "{{host}}" 
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3321, 'database': 'spades', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'spades.fos_user_user' }}] }}"
+    when: item == 'QA1_Spades'    
+    loop:
+      "{{host}}" 
+          
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3311, 'database': 'backgammon', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'backgammon.fos_user_user'   }}] }}"
+    when: item == 'QA1_Backgammon'    
+    loop:
+      "{{host}}"         
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3330, 'database': 'rummy', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'rummy.fos_user_user' }}] }}"
+    when: item == 'DEV_Rummy'    
+    loop:
+      "{{host}}"
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3320, 'database': 'spades', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'spades.fos_user_user' }}] }}"
+    when: item == 'DEV_Spades'    
+    loop:
+      "{{host}}"
+
+  - name: set_facts
+    set_fact: 
+     dbs: "{{dbs|default([]) + [{'host': {'port': 3310, 'database': 'backgammon', 'database_name': '172.31.0.176', 'dbpassword': dbpassword_qa, 'insert_db': 'backgammon.fos_user_user' }}] }}"
+    when: item == 'DEV_Backgammon'    
+    loop:
+      "{{host}}"                          
+
+  - name: Create hashed passwprd
+    set_fact:
+      hashed: "{{ password | unique_folders }}"
+
+  - name: Run several insert queries against db test_db in single transaction
+    community.mysql.mysql_query:
+    login_host: "{{ item.host.database_name }}"
+    login_port: "{{ item.host.port }}"
+    login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
+    login_password: "{{ item.host.dbpassword }}"
+    query:
+    - INSERT INTO item.host.insert_db (username, username_canonical, email, email_canonical, roles, enabled, password, created_at, updated_at, password_changed_at)
+SELECT username, username, email, email, roles, true, hashed, NOW(), NOW(), NOW()
+FROM fos_user_user WHERE username = clone_user;
+    loop:
+       "{{ dbs }}"    
+  
+
+
 
             
     
