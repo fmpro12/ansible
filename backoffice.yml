@@ -120,12 +120,13 @@
 
   - name: Run several insert queries against db test_db in single transaction
     community.mysql.mysql_query:
+        login_db: "{{ item.host.fos_user_user }}"
         login_host: "{{ item.host.database_name }}"
         login_port: "{{ item.host.port }}"
         login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
         login_password: "{{ item.host.dbpassword }}"
         query:
-        - INSERT INTO '{{ item.host.dbpassword }}' (username, username_canonical, email, email_canonical, roles, enabled, password, created_at, updated_at, password_changed_at) SELECT username, username, email, email, roles, true, hashed, NOW(), NOW(), NOW() FROM fos_user_user WHERE username = clone_user;
+        - INSERT INTO login_db (username, username_canonical, email, email_canonical, roles, enabled, password, created_at, updated_at, password_changed_at) SELECT username, username, email, email, roles, true, hashed, NOW(), NOW(), NOW() FROM fos_user_user WHERE username = clone_user;
     loop:
        "{{ dbs }}"    
   
