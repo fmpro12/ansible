@@ -120,7 +120,7 @@
 
   - name: Run several insert queries against db test_db in single transaction
     community.mysql.mysql_query:
-        login_db: "{{ item.host.fos_user_user }}"
+        login_db: "{{ item.host.insert_db }}"
         login_host: "{{ item.host.database_name }}"
         login_port: "{{ item.host.port }}"
         login_user: "{{ lookup('amazon.aws.aws_secret', 'qa/ansible', region='us-west-2') | from_json | json_query('user') }}"
