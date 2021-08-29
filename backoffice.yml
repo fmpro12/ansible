@@ -126,8 +126,8 @@
     login_password: "{{ item.host.dbpassword }}"
     query:
     - INSERT INTO item.host.insert_db (username, username_canonical, email, email_canonical, roles, enabled, password, created_at, updated_at, password_changed_at)
-SELECT username, username, email, email, roles, true, hashed, NOW(), NOW(), NOW()
-FROM fos_user_user WHERE username = clone_user;
+      SELECT username, username, email, email, roles, true, hashed, NOW(), NOW(), NOW()
+      FROM fos_user_user WHERE username = clone_user;
     loop:
        "{{ dbs }}"    
   
